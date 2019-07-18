@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CsocsoMaster</string>
+    <string name="action_settings">Beállítások</string>
+    <string name="add_new_player">Új játékos</string>
+    <string name="name">Nevek</string>
+    <string name="next">Következő</string>
+    <string name="reset_data">Adatok törlése</string>
+    <string name="too_few_active_players">Túl kevés aktív játékos!</string>
+    <string name="cancel">Mégsem</string>
+    <string name="ok">OK</string>
+    <string name="players">Játékosok</string>
+    <string name="matches">Meccsek</string>
+    <string name="act">Akt</string>
+    <string name="table">Táblázat</string>
+    <string name="keep_score">"Eredmény "</string>
+    <string name="score_to_win">Hány gól kell a győzelemhez</string>
+    <string name="title_activity_preference">Beállítások</string>
+    <string name="save_players">Játékosok mentése</string>
+
+</resources>

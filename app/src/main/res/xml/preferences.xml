@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Score keeping">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_keep_score"
+            android:title="@string/keep_score" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="pref_win_score"
+            android:title="@string/score_to_win"
+            android:numeric="integer"
+            android:maxLength="2"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

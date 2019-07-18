@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CsocsoMaster</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_new_player">Add new player</string>
+    <string name="name">Names</string>
+    <string name="next">Next</string>
+    <string name="reset_data">Reset data</string>
+    <string name="too_few_active_players">Too few active players!</string>
+    <string name="ok">OK</string>
+    <string name="players">Players</string>
+    <string name="matches">Matches</string>
+    <string name="act">Act</string>
+    <string name="table">Table</string>
+    <string name="keep_score">Keep score</string>
+    <string name="score_to_win">Score to win</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_preference">Settings</string>
+    <string name="save_players">Save Players</string>
+
+</resources>

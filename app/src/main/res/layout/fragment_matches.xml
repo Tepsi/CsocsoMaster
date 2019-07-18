@@ -1,0 +1,169 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.huzz00mc.csocsomaster.MatchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="40"
+                android:background="@color/listItemInactive" />
+
+            <TextView
+                android:id="@+id/hyphen_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="5"
+                android:background="@color/listItemInactive"
+                android:text="-"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/player_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="40"
+                android:background="@color/listItemInactive" />
+
+            <ImageButton
+                android:id="@+id/btndecrease_numberpicker_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/numberpicker_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="10"
+                android:background="@color/listItemInactive"
+                android:orientation="horizontal"
+                android:text="5"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/btnincrease_numberpicker_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:src="@android:drawable/arrow_up_float"
+                android:tint="@android:color/holo_blue_bright" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="40"
+                android:background="@color/listItemInactive" />
+
+            <TextView
+                android:id="@+id/hyphen_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="5"
+                android:background="@color/listItemInactive"
+                android:text="-"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/player_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="40"
+                android:background="@color/listItemInactive" />
+
+            <ImageButton
+                android:id="@+id/btndecrease_numberpicker_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/numberpicker_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="10"
+                android:background="@color/listItemInactive"
+                android:orientation="horizontal"
+                android:text="4"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/btnincrease_numberpicker_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:src="@android:drawable/arrow_up_float"
+                android:tint="@android:color/holo_blue_bright" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/player_3"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/listItemActive"
+            android:text="@string/next" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_next"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/listItemActive"
+            android:text="@string/cancel" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
