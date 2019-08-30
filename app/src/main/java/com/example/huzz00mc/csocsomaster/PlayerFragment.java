@@ -20,6 +20,7 @@ import com.example.huzz00mc.csocsomaster.DAO.MatchParticipants;
 import com.example.huzz00mc.csocsomaster.DAO.Pair;
 import com.example.huzz00mc.csocsomaster.DAO.Player;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 public class PlayerFragment extends Fragment implements View.OnClickListener {
@@ -91,7 +92,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         playerName.setHeight(100);
         playerName.setWidth(340);
         playerName.setGravity(Gravity.START);
-        playerName.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        playerName.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(R.string.add_new_player).setView(playerName);
@@ -135,6 +136,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                     MainActivity.pairs.add(pair);
             }
         }
+        Collections.shuffle(MainActivity.pairs);
     }
 
     private void generateMatches() {
@@ -156,6 +158,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 }
             }
         }
+        Collections.shuffle(MainActivity.matches);
     }
 
     public interface OnListFragmentInteractionListener {

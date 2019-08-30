@@ -52,6 +52,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
     private static void increaseCount(Match currentMatch) {
         currentMatch.getPair1().increaseCount();
         currentMatch.getPair2().increaseCount();
+        currentMatch.increaseCount();
         MainActivity.findMatchParticipants(currentMatch).increaseCount();
     }
 
@@ -199,8 +200,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
     }
 
     private Match generateNextMatch() {
-//        MainActivity.scramblePlayers();
-//        Collections.shuffle(activePlayerList);
 
         List<Player> toPlay = new ArrayList<>();
         List<Player> mustPlay = new ArrayList<>();
@@ -248,16 +247,23 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
         Collections.sort(possibleMatches);
         int minCount = possibleMatches.get(0).getPairCount();
         int minOtherCount = 99999;
+        int minMatchCount = 99999;
         for (Match match : possibleMatches) {
             if (match.getPairCount() > minCount)
                 break;
+            minCount = match.getPairCount();
             MatchParticipants matchParticipants = MainActivity.findMatchParticipants(match);
-            if (matchParticipants.getPlayed() < minOtherCount) {
+            if (matchParticipants.getPlayed() > minOtherCount) break;
+            if (matchParticipants.getPlayed() == minOtherCount) {
+                if (match.getCount() < minMatchCount) {
+                    currentMatch = match;
+                    minMatchCount = match.getCount();
+                }
+            } else {
                 minOtherCount = matchParticipants.getPlayed();
                 currentMatch = match;
             }
         }
-
         return currentMatch;
     }
 

@@ -11,8 +11,10 @@ public class Match implements Comparable<Match> {
 
     private Pair pair1;
     private Pair pair2;
+    private int count;
 
     public Match(Pair pair1, Pair pair2) {
+        count = 0;
         if (pair1.getPlayer1().getId() > pair2.getPlayer1().getId()) {
             this.pair2 = pair1;
             this.pair1 = pair2;
@@ -71,4 +73,11 @@ public class Match implements Comparable<Match> {
             return 0;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void increaseCount() {
+        count += 1;
+    }
 }

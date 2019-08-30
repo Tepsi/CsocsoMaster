@@ -16,5 +16,6 @@
     <string name="score_to_win">Hány gól kell a győzelemhez</string>
     <string name="title_activity_preference">Beállítások</string>
     <string name="save_players">Játékosok mentése</string>
+    <string name="load_players">Játékoslista betöltése</string>
 
 </resources>

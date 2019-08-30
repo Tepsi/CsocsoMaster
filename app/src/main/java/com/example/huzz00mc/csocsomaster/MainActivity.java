@@ -69,14 +69,6 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (playerList.isEmpty()) {
-            HashSet<String> playerListSet = new HashSet<String>();
-            PreferenceManager.getDefaultSharedPreferences(this).getStringSet("players",null);
-            for (String name:playerListSet) {
-                playerFragment.createPlayer(name);
-            }
-        }
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -113,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
             case R.id.action_save_list:
                 savePlayerList();
                 return true;
+            case R.id.action_load_list:
+                loadPlayerList();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -121,15 +116,13 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     private void savePlayerList() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
-        HashSet<String> playerListSet = new HashSet<String>();
-        for (Player player:playerList) {
-            playerListSet.add(player.getName());
+        StringBuilder csvList = new StringBuilder();
+        for (Player player : playerList) {
+            csvList.append(player.getName());
+            csvList.append(",");
         }
-        try {
-            editor.putStringSet("players",playerListSet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        editor.putString("players", csvList.toString());
+        editor.commit();
     }
 
     private void resetData() {
@@ -216,6 +209,18 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                 default:
                     return null;
 
+            }
+        }
+    }
+
+    private void loadPlayerList() {
+        resetData();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String csvList = prefs.getString("players", "");
+        if (!csvList.equals("")) {
+            String[] names = csvList.split(",");
+            for (String name : names) {
+                playerFragment.createPlayer(name);
             }
         }
     }
