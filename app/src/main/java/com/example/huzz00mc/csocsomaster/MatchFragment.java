@@ -1,6 +1,7 @@
 package com.example.huzz00mc.csocsomaster;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,12 @@ import com.example.huzz00mc.csocsomaster.DAO.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 
-public class MatchFragment extends Fragment implements View.OnClickListener {
+public class MatchFragment extends Fragment implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private OnFragmentInteractionListener mListener;
+    private SharedPreferences.OnSharedPreferenceChangeListener mListener2;
     private TextView tvPlayer1;
     private TextView tvPlayer2;
     private TextView tvPlayer3;
@@ -35,6 +36,8 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
     private ImageButton btnIncreaseNumberPicker2;
     private ImageButton btnDecreaseNumberPicker1;
     private ImageButton btnDecreaseNumberPicker2;
+    // Inflate the layout for this fragment
+    private int maxScore;
 
     private List<Player> activePlayerList;
     private Match match;
@@ -59,7 +62,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        maxScore = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("pref_win_score", "5"));
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
         Button btnNext = view.findViewById(R.id.btn_next);
@@ -90,11 +93,35 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
             tvPlayer4.setText(savedInstanceState.getString("PLAYER4"));
             tvNumberPicker1.setText(savedInstanceState.getString("NUMBER1"));
             tvNumberPicker2.setText(savedInstanceState.getString("NUMBER2"));
+        } else {
+            tvNumberPicker1.setText(Integer.toString(maxScore));
+            tvNumberPicker2.setText(Integer.toString(maxScore - 1));
         }
 
         setScoreVisibility();
 
         return view;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if (s.equals("pref_win_score")) {
+            int newMaxScore = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("pref_win_score", "5"));
+            if (Integer.parseInt(tvNumberPicker1.getText().toString()) == maxScore) {
+                tvNumberPicker1.setText(Integer.toString(newMaxScore));
+                if (Integer.parseInt(tvNumberPicker2.getText().toString()) >= newMaxScore)
+                    tvNumberPicker2.setText(Integer.toString(newMaxScore - 1));
+            }
+            if (Integer.parseInt(tvNumberPicker2.getText().toString()) == maxScore) {
+                tvNumberPicker2.setText(Integer.toString(newMaxScore));
+                if (Integer.parseInt(tvNumberPicker1.getText().toString()) >= newMaxScore)
+                    tvNumberPicker1.setText(Integer.toString(newMaxScore - 1));
+            }
+            maxScore = newMaxScore;
+        }
+        if (s.equals("pref_keep_score")) {
+            setScoreVisibility();
+        }
     }
 
     public void setScoreVisibility() {
@@ -126,12 +153,14 @@ public class MatchFragment extends Fragment implements View.OnClickListener {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override

@@ -6,11 +6,6 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_reset_data"
-        android:orderInCategory="200"
-        android:title="@string/reset_data"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_load_list"
@@ -22,6 +17,11 @@
         android:id="@+id/action_save_list"
         android:orderInCategory="210"
         android:title="@string/save_players"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_reset_data"
+        android:orderInCategory="220"
+        android:title="@string/reset_data"
         app:showAsAction="ifRoom" />
 
 

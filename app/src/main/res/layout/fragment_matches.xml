@@ -62,7 +62,6 @@
                 android:layout_weight="10"
                 android:background="@color/listItemInactive"
                 android:orientation="horizontal"
-                android:text="5"
                 android:textAlignment="center" />
 
             <ImageButton
@@ -128,7 +127,6 @@
                 android:layout_weight="10"
                 android:background="@color/listItemInactive"
                 android:orientation="horizontal"
-                android:text="4"
                 android:textAlignment="center" />
 
             <ImageButton

@@ -9,7 +9,7 @@
             android:defaultValue="5"
             android:key="pref_win_score"
             android:title="@string/score_to_win"
-            android:numeric="integer"
+            android:inputType="numberDecimal"
             android:maxLength="2"/>
     </PreferenceCategory>
 
