@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.huzz00mc.csocsomaster.DAO.FinishedMatch;
 import com.example.huzz00mc.csocsomaster.DAO.Match;
 import com.example.huzz00mc.csocsomaster.DAO.MatchParticipants;
 import com.example.huzz00mc.csocsomaster.DAO.Player;
@@ -172,6 +173,9 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
                 if (match != null) {
                     increaseCount(match);
                     match.saveResult(Integer.parseInt(tvNumberPicker1.getText().toString()), Integer.parseInt(tvNumberPicker2.getText().toString()));
+                    MainActivity.finishedMatches.add(new FinishedMatch(match.getPair1(), match.getPair2(),
+                            Integer.parseInt(tvNumberPicker1.getText().toString()),
+                            Integer.parseInt(tvNumberPicker2.getText().toString())));
                 }
             case R.id.btn_cancel:
                 activePlayerList = new ArrayList();
@@ -296,6 +300,14 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         return currentMatch;
     }
 
+    public void resetData() {
+        tvPlayer1.setText("");
+        tvPlayer2.setText("");
+        tvPlayer3.setText("");
+        tvPlayer4.setText("");
+        match = null;
+    }
+
     private void displayMatch(Match match) {
         tvPlayer1.setText(match.getPair1().getPlayer1().getName());
         tvPlayer2.setText(match.getPair1().getPlayer2().getName());
@@ -314,16 +326,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         outState.putString("NUMBER2", tvNumberPicker2.getText().toString());
 
         super.onSaveInstanceState(outState);
-    }
-
-    public void resetData() {
-        tvPlayer1.setText("");
-        tvPlayer2.setText("");
-        tvPlayer3.setText("");
-        tvPlayer4.setText("");
-//        tvNumberPicker1.setText("");
-//        tvNumberPicker2.setText("");
-        match = null;
     }
 
     public interface OnFragmentInteractionListener {

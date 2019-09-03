@@ -17,5 +17,6 @@
     <string name="title_activity_preference">Beállítások</string>
     <string name="save_players">Játékosok mentése</string>
     <string name="load_players">Játékoslista betöltése</string>
+    <string name="match_results">Eredmények</string>
 
 </resources>

@@ -15,15 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.example.huzz00mc.csocsomaster.DAO.FinishedMatch;
 import com.example.huzz00mc.csocsomaster.DAO.Match;
 import com.example.huzz00mc.csocsomaster.DAO.MatchParticipants;
 import com.example.huzz00mc.csocsomaster.DAO.Pair;
 import com.example.huzz00mc.csocsomaster.DAO.Player;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements PlayerFragment.OnListFragmentInteractionListener, MatchFragment.OnFragmentInteractionListener {
 
@@ -31,9 +30,11 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     public static ArrayList<Match> matches = new ArrayList<>();
     public static List<MatchParticipants> matchParticipantss = new ArrayList<>();
     public static List<Pair> pairs = new ArrayList<>();
+    public static List<FinishedMatch> finishedMatches = new ArrayList<>();
     public MatchFragment matchFragment = null;
     private PlayerFragment playerFragment = null;
     private ResultPlayerFragment resultPlayerFragment = null;
+    private FinishedMatchFragment finishedMatchFragment = null;
 
     public static MatchParticipants findMatchParticipants(Match match) {
         for (MatchParticipants matchParticipants : MainActivity.matchParticipantss)
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
             csvList.append(",");
         }
         editor.putString("players", csvList.toString());
-        editor.commit();
+        editor.apply();
     }
 
     private void resetData() {
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         matches = new ArrayList<>();
         matchParticipantss = new ArrayList<>();
         pairs = new ArrayList<>();
+        finishedMatches = new ArrayList<>();
         if (matchFragment != null)
             matchFragment.resetData();
     }
@@ -171,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                     return MatchFragment.newInstance();
                 case 2:
                     return ResultPlayerFragment.newInstance();
+                case 3:
+                    return FinishedMatchFragment.newInstance();
                 default:
                     return null;
             }
@@ -188,13 +192,19 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                     break;
                 case 2:
                     resultPlayerFragment = (ResultPlayerFragment) createdFragment;
+                    break;
+                case 3:
+                    finishedMatchFragment = (FinishedMatchFragment) createdFragment;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + position);
             }
             return createdFragment;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -206,9 +216,10 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                     return getResources().getString(R.string.matches);
                 case 2:
                     return getString(R.string.table);
+                case 3:
+                    return "Results";
                 default:
                     return null;
-
             }
         }
     }

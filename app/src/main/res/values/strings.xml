@@ -19,5 +19,6 @@
     <string name="title_activity_preference">Settings</string>
     <string name="save_players">Save Players</string>
     <string name="load_players">Load Players</string>
+    <string name="match_results">Match results</string>
 
 </resources>

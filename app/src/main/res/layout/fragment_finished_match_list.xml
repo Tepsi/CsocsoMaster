@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.huzz00mc.csocsomaster.PlayerFragment">
+    tools:context="com.example.huzz00mc.csocsomaster.FinishedMatchFragment">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/fragment_player_list_header"
+        <include layout="@layout/fragment_finished_match_list_header"
             android:id="@+id/list_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,26 +21,14 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/list"
-            android:name="com.example.huzz00mc.csocsomaster.PlayerFragment"
+            android:name="com.example.huzz00mc.csocsomaster.FinishedMatchFragment"
             android:layout_below="@id/list_header"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.huzz00mc.csocsomaster.PlayerFragment"
-            tools:listitem="@layout/fragment_player" />
+            tools:context="com.example.huzz00mc.csocsomaster.FinishedMatchFragment"
+            tools:listitem="@layout/fragment_finished_match" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_add_player"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="20dp"
-            android:padding="5dp"
-            android:src="@android:drawable/ic_input_add"
-            android:tint="@android:color/black" />
     </RelativeLayout>
 </FrameLayout>
-

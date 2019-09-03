@@ -8,24 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ResultPlayerFragment extends Fragment {
+public class FinishedMatchFragment extends Fragment {
 
-    private MyPlayerRecyclerViewAdapter2 myPlayerRecyclerViewAdapter;
+    private ResultRecyclerViewAdapter resultRecyclerViewAdapter;
 
-    public ResultPlayerFragment() {
-    }
-
-    public static ResultPlayerFragment newInstance() {
-        ResultPlayerFragment fragment = new ResultPlayerFragment();
+    public static FinishedMatchFragment newInstance() {
+        FinishedMatchFragment fragment = new FinishedMatchFragment();
         return fragment;
     }
 
-    public MyPlayerRecyclerViewAdapter2 getMyPlayerRecyclerViewAdapter() {
-        return myPlayerRecyclerViewAdapter;
-    }
-
-    public void sortPlayers() {
-        myPlayerRecyclerViewAdapter.sortPlayers();
+    public ResultRecyclerViewAdapter getMyPlayerRecyclerViewAdapter() {
+        return resultRecyclerViewAdapter;
     }
 
     @Override
@@ -36,13 +29,13 @@ public class ResultPlayerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_result_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_finished_match_list, container, false);
 
 
         RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        myPlayerRecyclerViewAdapter = new MyPlayerRecyclerViewAdapter2();
-        recyclerView.setAdapter(myPlayerRecyclerViewAdapter);
+        resultRecyclerViewAdapter = new ResultRecyclerViewAdapter();
+        recyclerView.setAdapter(resultRecyclerViewAdapter);
 
         return view;
     }

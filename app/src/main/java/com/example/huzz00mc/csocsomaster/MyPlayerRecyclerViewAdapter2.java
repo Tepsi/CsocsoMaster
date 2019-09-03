@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerRecyclerViewAdapter2.ViewHolder> {
 
     static final Comparator<Player> BY_RESULTS =
@@ -20,22 +22,25 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
                 @Override
                 public int compare(Player player, Player t1) {
                     if (player.getWinLoseRatio() == t1.getWinLoseRatio())
-                        return Math.round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
+                        return round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
                     else
-                        return Math.round((t1.getWinLoseRatio() - player.getWinLoseRatio()) * 10000);
+                        return round((t1.getWinLoseRatio() - player.getWinLoseRatio()) * 10000);
                 }
             };
     private List<Player> mValues;
 
-    public MyPlayerRecyclerViewAdapter2() {
-        sortPlayers();
-    }
-
     public void sortPlayers() {
         mValues = new ArrayList<>();
-        mValues.addAll(MainActivity.playerList);
+        for (Player player : MainActivity.playerList) {
+            if (player.getPlayed() > 0) mValues.add(player);
+        }
         Collections.sort(mValues, BY_RESULTS);
         notifyDataSetChanged();
+    }
+
+
+    public MyPlayerRecyclerViewAdapter2() {
+        sortPlayers();
     }
 
     @Override
@@ -52,7 +57,7 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
         holder.tvPlayed.setText(Integer.toString(holder.player.getWon() + holder.player.getLost()));
         holder.tvWon.setText(Integer.toString(holder.player.getWon()));
         holder.tvLost.setText(Integer.toString(holder.player.getLost()));
-        holder.tvWinLoseRatio.setText(format(holder.player.getWinLoseRatio()));
+        holder.tvWinLoseRatio.setText(Integer.toString(round(holder.player.getWinLoseRatio() * 100)) + "%");
         holder.tvGoalsFor.setText(Integer.toString(holder.player.getGoalsFor()));
         holder.tvGoalsAgainst.setText(Integer.toString(holder.player.getGoalsAgainst()));
     }
@@ -62,12 +67,6 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
         return mValues.size();
     }
 
-
-
-    private String format(float f) {
-        if (f == (long) f) return String.format("%d", (long) f);
-        else return String.format("%.2f", f);
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
