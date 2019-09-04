@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                 case 1:
                     return getResources().getString(R.string.matches);
                 case 2:
-                    return getString(R.string.table);
+                    return getResources().getString(R.string.table);
                 case 3:
-                    return "Results";
+                    return getResources().getString(R.string.match_results);
                 default:
                     return null;
             }

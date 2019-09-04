@@ -95,6 +95,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
             tvNumberPicker1.setText(savedInstanceState.getString("NUMBER1"));
             tvNumberPicker2.setText(savedInstanceState.getString("NUMBER2"));
         } else {
+            if (match != null) displayMatch(match);
             tvNumberPicker1.setText(Integer.toString(maxScore));
             tvNumberPicker2.setText(Integer.toString(maxScore - 1));
         }

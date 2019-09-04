@@ -31,7 +31,6 @@ public class FinishedMatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_finished_match_list, container, false);
 
-
         RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         resultRecyclerViewAdapter = new ResultRecyclerViewAdapter();

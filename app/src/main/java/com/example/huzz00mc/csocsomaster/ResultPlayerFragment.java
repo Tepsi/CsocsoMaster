@@ -12,9 +12,6 @@ public class ResultPlayerFragment extends Fragment {
 
     private MyPlayerRecyclerViewAdapter2 myPlayerRecyclerViewAdapter;
 
-    public ResultPlayerFragment() {
-    }
-
     public static ResultPlayerFragment newInstance() {
         ResultPlayerFragment fragment = new ResultPlayerFragment();
         return fragment;
