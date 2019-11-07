@@ -112,7 +112,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
     public void createPlayer(String nev) {
         Player newPlayer = new Player(nev);
-        newPlayer.setPlayed(MainActivity.minPlayed());
+        if (newPlayer.getPlayed() < MainActivity.minPlayed())
+            newPlayer.setPlayed(MainActivity.minPlayed());
         MainActivity.playerList.add(newPlayer);
         if (MainActivity.playerList.size() >= 4) {
             Collections.shuffle(MainActivity.playerList);

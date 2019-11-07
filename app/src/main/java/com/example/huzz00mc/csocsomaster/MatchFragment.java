@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.huzz00mc.csocsomaster.DAO.FinishedMatch;
 import com.example.huzz00mc.csocsomaster.DAO.Match;
 import com.example.huzz00mc.csocsomaster.DAO.MatchParticipants;
+import com.example.huzz00mc.csocsomaster.DAO.Pair;
 import com.example.huzz00mc.csocsomaster.DAO.Player;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import java.util.List;
 public class MatchFragment extends Fragment implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private OnFragmentInteractionListener mListener;
-    private SharedPreferences.OnSharedPreferenceChangeListener mListener2;
     private TextView tvPlayer1;
     private TextView tvPlayer2;
     private TextView tvPlayer3;
@@ -40,7 +40,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     // Inflate the layout for this fragment
     private int maxScore;
 
-    private List<Player> activePlayerList;
+    private ArrayList<Player> activePlayerList;
     private Match match;
 
     public MatchFragment() {
@@ -88,20 +88,22 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         tvNumberPicker2 = view.findViewById(R.id.numberpicker_2);
 
         if (savedInstanceState != null) {
-            tvPlayer1.setText(savedInstanceState.getString("PLAYER1"));
-            tvPlayer2.setText(savedInstanceState.getString("PLAYER2"));
-            tvPlayer3.setText(savedInstanceState.getString("PLAYER3"));
-            tvPlayer4.setText(savedInstanceState.getString("PLAYER4"));
             tvNumberPicker1.setText(savedInstanceState.getString("NUMBER1"));
             tvNumberPicker2.setText(savedInstanceState.getString("NUMBER2"));
-        } else {
-            if (match != null) displayMatch(match);
+            if (match == null && savedInstanceState.getString("PLAYER1") != "") {
+                match = new Match(new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER1")),
+                        MainActivity.getPlayer(savedInstanceState.getString("PLAYER2"))),
+                        new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER3")),
+                                MainActivity.getPlayer(savedInstanceState.getString("PLAYER4"))));
+            }
+        }
+        if (match != null) displayMatch(match);
+        if (tvNumberPicker1.getText() == "") {
             tvNumberPicker1.setText(Integer.toString(maxScore));
             tvNumberPicker2.setText(Integer.toString(maxScore - 1));
         }
 
         setScoreVisibility();
-
         return view;
     }
 
@@ -127,7 +129,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     }
 
     public void setScoreVisibility() {
-
         if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_keep_score", true)) {
             tvNumberPicker1.setVisibility(View.VISIBLE);
             tvNumberPicker2.setVisibility(View.VISIBLE);
@@ -143,7 +144,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
             btnIncreaseNumberPicker1.setVisibility(View.INVISIBLE);
             btnIncreaseNumberPicker2.setVisibility(View.INVISIBLE);
         }
-
     }
 
     @Override
@@ -230,7 +230,6 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
                 }
                 break;
         }
-
     }
 
     private Match generateNextMatch() {

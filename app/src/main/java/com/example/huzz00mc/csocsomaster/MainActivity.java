@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
 
     @Override
     public void onListFragmentInteraction(Player player) {
-        if (!player.isActive()) {
+        if (!player.isActive() & player.getPlayed() < minPlayed(player)) {
             player.setPlayed(minPlayed(player));
         }
         player.switchActive();
@@ -234,5 +234,12 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                 playerFragment.createPlayer(name);
             }
         }
+    }
+
+    public static Player getPlayer(String name) {
+        for (Player player : playerList) {
+            if (player.getName() == name) return player;
+        }
+        return null;
     }
 }

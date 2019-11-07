@@ -22,6 +22,7 @@
             android:background="@color/listItemInactive" />
 
         <TextView
+            android:id="@+id/hyphen_fm_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -73,6 +74,7 @@
             android:background="@color/listItemInactive" />
 
         <TextView
+            android:id="@+id/hyphen_fm_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
