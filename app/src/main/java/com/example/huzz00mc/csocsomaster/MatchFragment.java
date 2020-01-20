@@ -1,5 +1,6 @@
 package com.example.huzz00mc.csocsomaster;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     private ImageButton btnDecreaseNumberPicker1;
     private ImageButton btnDecreaseNumberPicker2;
     // Inflate the layout for this fragment
-    private int maxScore;
+    private int maxScore = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("pref_win_score", "5"));
 
     private ArrayList<Player> activePlayerList;
     private Match match;
@@ -60,6 +61,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         MainActivity.findMatchParticipants(currentMatch).increaseCount();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         if (savedInstanceState != null) {
             tvNumberPicker1.setText(savedInstanceState.getString("NUMBER1"));
             tvNumberPicker2.setText(savedInstanceState.getString("NUMBER2"));
-            if (match == null && savedInstanceState.getString("PLAYER1") != "") {
+            if (match == null && !savedInstanceState.getString("PLAYER1").equals("")) {
                 match = new Match(new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER1")),
                         MainActivity.getPlayer(savedInstanceState.getString("PLAYER2"))),
                         new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER3")),
@@ -107,6 +109,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if (s.equals("pref_win_score")) {
@@ -165,6 +168,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View view) {
         int number;
@@ -179,7 +183,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
                             Integer.parseInt(tvNumberPicker2.getText().toString())));
                 }
             case R.id.btn_cancel:
-                activePlayerList = new ArrayList();
+                activePlayerList = new ArrayList<Player>();
                 for (Player player : MainActivity.playerList) {
                     if (player.isActive()) activePlayerList.add(player);
                 }
@@ -228,6 +232,8 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
                     number++;
                     tvNumberPicker2.setText(Integer.toString(number));
                 }
+                break;
+            default:
                 break;
         }
     }
