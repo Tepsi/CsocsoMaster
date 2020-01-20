@@ -17,31 +17,16 @@ public class FinishedMatch {
         return pair1;
     }
 
-    public void setPair1(Pair pair1) {
-        this.pair1 = pair1;
-    }
-
     public Pair getPair2() {
         return pair2;
-    }
-
-    public void setPair2(Pair pair2) {
-        this.pair2 = pair2;
     }
 
     public int getScore1() {
         return score1;
     }
 
-    public void setScore1(int score1) {
-        this.score1 = score1;
-    }
-
     public int getScore2() {
         return score2;
     }
 
-    public void setScore2(int score2) {
-        this.score2 = score2;
-    }
 }

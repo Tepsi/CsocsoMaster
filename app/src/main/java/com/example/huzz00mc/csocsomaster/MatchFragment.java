@@ -39,7 +39,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     private ImageButton btnDecreaseNumberPicker1;
     private ImageButton btnDecreaseNumberPicker2;
     // Inflate the layout for this fragment
-    private int maxScore = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("pref_win_score", "5"));
+    private int maxScore;
 
     private ArrayList<Player> activePlayerList;
     private Match match;
@@ -57,8 +57,17 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     private static void increaseCount(Match currentMatch) {
         currentMatch.getPair1().increaseCount();
         currentMatch.getPair2().increaseCount();
-        currentMatch.increaseCount();
+        increaseMatchCount(currentMatch);
         MainActivity.findMatchParticipants(currentMatch).increaseCount();
+    }
+
+    private static void increaseMatchCount(Match match) {
+        for (Match current : MainActivity.matches) {
+            if (current.equals((match))) {
+                current.increaseCount();
+                break;
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -183,7 +192,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
                             Integer.parseInt(tvNumberPicker2.getText().toString())));
                 }
             case R.id.btn_cancel:
-                activePlayerList = new ArrayList<Player>();
+                activePlayerList = new ArrayList<>();
                 for (Player player : MainActivity.playerList) {
                     if (player.isActive()) activePlayerList.add(player);
                 }
@@ -283,6 +292,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
             if (ok)
                 possibleMatches.add(match);
         }
+
         Collections.sort(possibleMatches);
         int minCount = possibleMatches.get(0).getPairCount();
         int minOtherCount = 99999;

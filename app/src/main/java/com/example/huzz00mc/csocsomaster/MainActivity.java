@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     public static List<MatchParticipants> matchParticipantss = new ArrayList<>();
     public static List<Pair> pairs = new ArrayList<>();
     public static List<FinishedMatch> finishedMatches = new ArrayList<>();
+    public static List<Match> matchCount = new ArrayList<Match>();
     public MatchFragment matchFragment = null;
     private PlayerFragment playerFragment = null;
     private ResultPlayerFragment resultPlayerFragment = null;

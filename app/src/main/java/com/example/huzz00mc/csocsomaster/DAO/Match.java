@@ -34,7 +34,8 @@ public class Match implements Comparable<Match> {
     }
 
     public boolean equals(Match other) {
-        if (this.pair1.equals(other.pair1) && this.pair2.equals(other.pair2))
+        if ((this.pair1.equals(other.pair1) && this.pair2.equals(other.pair2)) ||
+            (this.pair1.equals(other.pair2) && this.pair2.equals(other.pair1)))
             return true;
         return false;
     }
@@ -79,5 +80,9 @@ public class Match implements Comparable<Match> {
 
     public void increaseCount() {
         count += 1;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
