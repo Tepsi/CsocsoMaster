@@ -22,11 +22,15 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
                 @Override
                 public int compare(Player player, Player t1) {
                     if (player.getWinLoseRatio() == t1.getWinLoseRatio())
-                        return round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
+                        if (t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst() == 0)
+                            return t1.getGoalsFor() - player.getGoalsFor();
+                        else
+                          return round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
                     else
                         return round((t1.getWinLoseRatio() - player.getWinLoseRatio()) * 10000);
                 }
             };
+
     private List<Player> mValues;
 
     public void sortPlayers() {
