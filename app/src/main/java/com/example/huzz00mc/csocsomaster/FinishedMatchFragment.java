@@ -13,8 +13,7 @@ public class FinishedMatchFragment extends Fragment {
     private ResultRecyclerViewAdapter resultRecyclerViewAdapter;
 
     public static FinishedMatchFragment newInstance() {
-        FinishedMatchFragment fragment = new FinishedMatchFragment();
-        return fragment;
+        return new FinishedMatchFragment();
     }
 
     public ResultRecyclerViewAdapter getMyPlayerRecyclerViewAdapter() {
