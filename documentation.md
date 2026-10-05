@@ -226,3 +226,30 @@ Két beállítás, `SharedPreferences`-ben tárolva:
   számlálók növelése azonnali és végleges a futó session-ön belül; a
   `finishedMatches` lista sem szerkeszthető/törölhető a UI-ból.
 - **Process-halál = adatvesztés** a mentett névlistán kívül (lásd 3. pont).
+
+## 11. Modernizációs réteg (2026. október) — technikai, nem üzleti logika
+
+A Play Store 2026. augusztus 31-től API 36-ot (Android 16) követel meg az
+új feltöltéseknek/frissítéseknek. Az app eredetileg API 26-ot célzott, elavult
+`com.android.support:*` függőségekkel, amik ezen a szinten már nem használhatók
+érdemben — ez a szakasz **nem üzleti logika**, csak build/infrastruktúra
+változás, a teljes részletezés a `README.md` "Modernization" és "Play Store
+release" szakaszaiban van:
+
+- AndroidX migráció (minden `android.support.*` → `androidx.*`/Material),
+  compileSdk/targetSdk 36, AGP 9.4.0, Gradle 9.6.0, Java 17.
+- `applicationId` átnevezve `com.tepsi.csocsomaster`-re (ez a végleges,
+  publikus Play Store azonosító — a Java package/`namespace` szándékosan
+  marad `com.example.huzz00mc.csocsomaster`).
+- A `SettingsActivity`/`SettingsFragment` (`android.preference.*`) és a
+  `ViewPager`+`FragmentPagerAdapter` **szándékosan nem** került migrálásra
+  (androidx.preference / ViewPager2) — ez minimális scope-ú modernizáció,
+  nem architektúrális átírás.
+- A fenti változások **le vannak fordítva és ellenőrizve** (`assembleDebug`,
+  `assembleRelease`, `bundleRelease`, `test` mind sikeres) — ehhez utólag
+  parancssoros Android SDK-t telepítettünk. Két valódi fordítási hiba
+  derült ki és lett javítva eközben, lásd README "Build status" rész. A
+  tényleges futtatás (eszközön/emulátoron) még nincs ellenőrizve — lásd
+  README "Known risk" rész (edge-to-edge megjelenítés).
+
+A 1–10. pontokban leírt üzleti logika/sorsolási algoritmus **nem változott**.

@@ -13,3 +13,8 @@ build.gradle
 .idea/caches/build_file_checksums.ser
 *.ser
 CLAUDE.md
+
+# Release signing — never commit the keystore or its credentials
+app/keystore.properties
+*.jks
+*.keystore

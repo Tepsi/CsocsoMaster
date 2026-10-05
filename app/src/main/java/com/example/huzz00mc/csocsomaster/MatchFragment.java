@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,68 +182,65 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
     public void onClick(View view) {
         int number;
         int maxScore = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("pref_win_score", "0"));
-        switch (view.getId()) {
-            case R.id.btn_next:
-                if (match != null) {
-                    increaseCount(match);
-                    match.saveResult(Integer.parseInt(tvNumberPicker1.getText().toString()), Integer.parseInt(tvNumberPicker2.getText().toString()));
-                    MainActivity.finishedMatches.add(new FinishedMatch(match.getPair1(), match.getPair2(),
-                            Integer.parseInt(tvNumberPicker1.getText().toString()),
-                            Integer.parseInt(tvNumberPicker2.getText().toString())));
-                }
-            case R.id.btn_cancel:
-                activePlayerList = new ArrayList<>();
-                for (Player player : MainActivity.playerList) {
-                    if (player.isActive()) activePlayerList.add(player);
-                }
-                if (activePlayerList.size() < 4) {
-                    Toast.makeText(getContext(), R.string.too_few_active_players, Toast.LENGTH_SHORT).show();
-                } else {
-                    match = generateNextMatch();
-                    displayMatch(match);
-                    mListener.onNextPressed();
-                }
-                break;
-            case R.id.btndecrease_numberpicker_1:
-                number = Integer.parseInt(tvNumberPicker1.getText().toString());
-                if (number == maxScore) tvNumberPicker2.setText(Integer.toString(maxScore));
-                if (number > 0) {
-                    number--;
-                    tvNumberPicker1.setText(Integer.toString(number));
-                }
-                break;
-            case R.id.btnincrease_numberpicker_1:
-                number = Integer.parseInt(tvNumberPicker1.getText().toString());
-                if (number == maxScore - 1 && Integer.parseInt(tvNumberPicker2.getText().toString()) == maxScore) {
-                    tvNumberPicker2.setText(Integer.toString(maxScore - 1));
-                }
-                if (number < maxScore) {
-                    number++;
-                    tvNumberPicker1.setText(Integer.toString(number));
-                }
-                break;
-            case R.id.btndecrease_numberpicker_2:
-                number = Integer.parseInt(tvNumberPicker2.getText().toString());
-                if (number == maxScore) {
-                    tvNumberPicker1.setText(Integer.toString(maxScore));
-                }
-                if (number > 0) {
-                    number--;
-                    tvNumberPicker2.setText(Integer.toString(number));
-                }
-                break;
-            case R.id.btnincrease_numberpicker_2:
-                number = Integer.parseInt(tvNumberPicker2.getText().toString());
-                if (number == maxScore - 1 && Integer.parseInt(tvNumberPicker1.getText().toString()) == maxScore) {
-                    tvNumberPicker1.setText(Integer.toString(maxScore - 1));
-                }
-                if (number < maxScore) {
-                    number++;
-                    tvNumberPicker2.setText(Integer.toString(number));
-                }
-                break;
-            default:
-                break;
+        int id = view.getId();
+        // switch(id) on R.id.* no longer compiles: with current AGP, the app
+        // module's own resource ids are not guaranteed compile-time constants.
+        // btn_next intentionally falls through into the same body as
+        // btn_cancel (recording a result does NOT skip generating the next
+        // match) — preserved below via the shared outer condition.
+        if (id == R.id.btn_next || id == R.id.btn_cancel) {
+            if (id == R.id.btn_next && match != null) {
+                increaseCount(match);
+                match.saveResult(Integer.parseInt(tvNumberPicker1.getText().toString()), Integer.parseInt(tvNumberPicker2.getText().toString()));
+                MainActivity.finishedMatches.add(new FinishedMatch(match.getPair1(), match.getPair2(),
+                        Integer.parseInt(tvNumberPicker1.getText().toString()),
+                        Integer.parseInt(tvNumberPicker2.getText().toString())));
+            }
+            activePlayerList = new ArrayList<>();
+            for (Player player : MainActivity.playerList) {
+                if (player.isActive()) activePlayerList.add(player);
+            }
+            if (activePlayerList.size() < 4) {
+                Toast.makeText(getContext(), R.string.too_few_active_players, Toast.LENGTH_SHORT).show();
+            } else {
+                match = generateNextMatch();
+                displayMatch(match);
+                mListener.onNextPressed();
+            }
+        } else if (id == R.id.btndecrease_numberpicker_1) {
+            number = Integer.parseInt(tvNumberPicker1.getText().toString());
+            if (number == maxScore) tvNumberPicker2.setText(Integer.toString(maxScore));
+            if (number > 0) {
+                number--;
+                tvNumberPicker1.setText(Integer.toString(number));
+            }
+        } else if (id == R.id.btnincrease_numberpicker_1) {
+            number = Integer.parseInt(tvNumberPicker1.getText().toString());
+            if (number == maxScore - 1 && Integer.parseInt(tvNumberPicker2.getText().toString()) == maxScore) {
+                tvNumberPicker2.setText(Integer.toString(maxScore - 1));
+            }
+            if (number < maxScore) {
+                number++;
+                tvNumberPicker1.setText(Integer.toString(number));
+            }
+        } else if (id == R.id.btndecrease_numberpicker_2) {
+            number = Integer.parseInt(tvNumberPicker2.getText().toString());
+            if (number == maxScore) {
+                tvNumberPicker1.setText(Integer.toString(maxScore));
+            }
+            if (number > 0) {
+                number--;
+                tvNumberPicker2.setText(Integer.toString(number));
+            }
+        } else if (id == R.id.btnincrease_numberpicker_2) {
+            number = Integer.parseInt(tvNumberPicker2.getText().toString());
+            if (number == maxScore - 1 && Integer.parseInt(tvNumberPicker1.getText().toString()) == maxScore) {
+                tvNumberPicker1.setText(Integer.toString(maxScore - 1));
+            }
+            if (number < maxScore) {
+                number++;
+                tvNumberPicker2.setText(Integer.toString(number));
+            }
         }
     }
 

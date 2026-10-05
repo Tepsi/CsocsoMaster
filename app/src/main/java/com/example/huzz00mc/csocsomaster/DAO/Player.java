@@ -1,6 +1,6 @@
 package com.example.huzz00mc.csocsomaster.DAO;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /*
  * Created by HUZZ00MC on 2/28/2018.

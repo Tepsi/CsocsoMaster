@@ -4,7 +4,7 @@ package com.example.huzz00mc.csocsomaster.DAO;
   Created by HUZZ00MC on 3/6/2018.
  */
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
