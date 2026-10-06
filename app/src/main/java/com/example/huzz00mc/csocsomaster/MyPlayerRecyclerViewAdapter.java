@@ -36,12 +36,9 @@ public class MyPlayerRecyclerViewAdapter extends RecyclerView.Adapter<MyPlayerRe
         holder.mImageView.setImageResource(holder.player.isActive() ? android.R.drawable.presence_online : android.R.drawable.presence_busy);
         holder.mImageView.setContentDescription(holder.mImageView.getContext().getString(
                 holder.player.isActive() ? R.string.player_active : R.string.player_inactive));
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.player);
-                }
+        holder.mView.setOnClickListener(v -> {
+            if (null != mListener) {
+                mListener.onListFragmentInteraction(holder.player);
             }
         });
     }
@@ -51,7 +48,7 @@ public class MyPlayerRecyclerViewAdapter extends RecyclerView.Adapter<MyPlayerRe
         return MainActivity.playerList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mNameView;
         final TextView mPlayedView;

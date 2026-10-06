@@ -40,26 +40,24 @@ public class ResultRecyclerViewAdapter extends RecyclerView.Adapter<ResultRecycl
     public ResultRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_finished_match, parent, false);
-        return new ResultRecyclerViewAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     private void setColor(ResultRecyclerViewAdapter.ViewHolder holder, int position, int color) {
-        switch (position) {
-            case 1:
-                holder.tvFMName1.setBackgroundColor(color);
-                holder.tvFMName2.setBackgroundColor(color);
-                holder.tvScore1.setBackgroundColor(color);
-                holder.tvHyphen1.setBackgroundColor(color);
-                break;
-            default:
-                holder.tvFMName3.setBackgroundColor(color);
-                holder.tvFMName4.setBackgroundColor(color);
-                holder.tvScore2.setBackgroundColor(color);
-                holder.tvHyphen2.setBackgroundColor(color);
+        if (position == 1) {
+            holder.tvFMName1.setBackgroundColor(color);
+            holder.tvFMName2.setBackgroundColor(color);
+            holder.tvScore1.setBackgroundColor(color);
+            holder.tvHyphen1.setBackgroundColor(color);
+        } else {
+            holder.tvFMName3.setBackgroundColor(color);
+            holder.tvFMName4.setBackgroundColor(color);
+            holder.tvScore2.setBackgroundColor(color);
+            holder.tvHyphen2.setBackgroundColor(color);
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvFMName1;
         private final TextView tvFMName2;
         private final TextView tvFMName3;

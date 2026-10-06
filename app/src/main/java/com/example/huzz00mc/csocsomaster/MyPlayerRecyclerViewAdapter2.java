@@ -20,17 +20,14 @@ import static java.lang.Math.round;
 public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerRecyclerViewAdapter2.ViewHolder> {
 
     static final Comparator<Player> BY_RESULTS =
-            new Comparator<Player>() {
-                @Override
-                public int compare(Player player, Player t1) {
-                    if (player.getWinLoseRatio() == t1.getWinLoseRatio())
-                        if (t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst() == 0)
-                            return t1.getGoalsFor() - player.getGoalsFor();
-                        else
-                          return round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
+            (player, t1) -> {
+                if (player.getWinLoseRatio() == t1.getWinLoseRatio())
+                    if (t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst() == 0)
+                        return t1.getGoalsFor() - player.getGoalsFor();
                     else
-                        return round((t1.getWinLoseRatio() - player.getWinLoseRatio()) * 10000);
-                }
+                      return Math.round((t1.getGoalsFor() + player.getGoalsAgainst() - player.getGoalsFor() - t1.getGoalsAgainst()) * 100);
+                else
+                    return Math.round((t1.getWinLoseRatio() - player.getWinLoseRatio()) * 10000);
             };
 
     private List<Player> mValues;
@@ -77,7 +74,7 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView tvName;
         public final TextView tvPlayed;

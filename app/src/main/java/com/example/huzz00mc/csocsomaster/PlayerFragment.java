@@ -3,7 +3,6 @@ package com.example.huzz00mc.csocsomaster;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,6 @@ import com.example.huzz00mc.csocsomaster.DAO.MatchParticipants;
 import com.example.huzz00mc.csocsomaster.DAO.Pair;
 import com.example.huzz00mc.csocsomaster.DAO.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class PlayerFragment extends Fragment implements View.OnClickListener {
@@ -68,7 +66,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new RuntimeException(context
                     + " must implement OnListFragmentInteractionListener");
         }
     }
@@ -95,16 +93,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(R.string.add_new_player).setView(playerName);
-        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                createPlayer(playerName.getText().toString());
-            }
-        });
-        alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
+        alertDialog.setPositiveButton(R.string.ok, (dialogInterface, i) -> createPlayer(playerName.getText().toString()));
+        alertDialog.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
         });
         alertDialog.show();
     }

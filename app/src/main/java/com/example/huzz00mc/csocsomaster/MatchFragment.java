@@ -101,7 +101,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         if (savedInstanceState != null) {
             tvNumberPicker1.setText(savedInstanceState.getString("NUMBER1"));
             tvNumberPicker2.setText(savedInstanceState.getString("NUMBER2"));
-            if (match == null && !savedInstanceState.getString("PLAYER1").equals("")) {
+            if (match == null && !savedInstanceState.getString("PLAYER1").isEmpty()) {
                 match = new Match(new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER1")),
                         MainActivity.getPlayer(savedInstanceState.getString("PLAYER2"))),
                         new Pair(MainActivity.getPlayer(savedInstanceState.getString("PLAYER3")),
@@ -164,7 +164,7 @@ public class MatchFragment extends Fragment implements View.OnClickListener, Sha
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new RuntimeException(context
                     + " must implement OnFragmentInteractionListener");
         }
         PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
