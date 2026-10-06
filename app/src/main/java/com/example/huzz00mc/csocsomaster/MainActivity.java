@@ -172,18 +172,13 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return PlayerFragment.newInstance();
-                case 1:
-                    return MatchFragment.newInstance();
-                case 2:
-                    return ResultPlayerFragment.newInstance();
-                case 3:
-                    return FinishedMatchFragment.newInstance();
-                default:
-                    return null;
-            }
+            return switch (position) {
+                case 0 -> PlayerFragment.newInstance();
+                case 1 -> MatchFragment.newInstance();
+                case 2 -> ResultPlayerFragment.newInstance();
+                case 3 -> FinishedMatchFragment.newInstance();
+                default -> null;
+            };
         }
 
         @Override
@@ -234,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         resetData();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String csvList = prefs.getString("players", "");
-        if (!csvList.equals("")) {
+        if (!csvList.isEmpty()) {
             String[] names = csvList.split(",");
             for (String name : names) {
                 playerFragment.createPlayer(name);
@@ -244,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
 
     public static Player getPlayer(String name) {
         for (Player player : playerList) {
-            if (player.getName() == name) return player;
+            if (player.getName().equals(name)) return player;
         }
         return null;
     }
