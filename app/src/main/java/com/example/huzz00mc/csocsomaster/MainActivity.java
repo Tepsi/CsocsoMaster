@@ -1,5 +1,6 @@
 package com.example.huzz00mc.csocsomaster;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,11 +32,9 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     public static List<MatchParticipants> matchParticipantss = new ArrayList<>();
     public static List<Pair> pairs = new ArrayList<>();
     public static List<FinishedMatch> finishedMatches = new ArrayList<>();
-    public static List<Match> matchCount = new ArrayList<Match>();
     public MatchFragment matchFragment = null;
     private PlayerFragment playerFragment = null;
     private ResultPlayerFragment resultPlayerFragment = null;
-    private FinishedMatchFragment finishedMatchFragment = null;
 
     public static MatchParticipants findMatchParticipants(Match match) {
         for (MatchParticipants matchParticipants : MainActivity.matchParticipantss)
@@ -89,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         return true;
     }
 
+    // Reset/next/toggle actions rebuild or reorder the whole player list, so there is
+    // no stable per-item mapping to drive a targeted notify*() event.
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
             matchFragment.resetData();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onNextPressed() {
         if (playerFragment != null) {
@@ -149,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onListFragmentInteraction(Player player) {
         if (!player.isActive() & player.getPlayed() < minPlayed(player)) {
@@ -196,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                     resultPlayerFragment = (ResultPlayerFragment) createdFragment;
                     break;
                 case 3:
-                    finishedMatchFragment = (FinishedMatchFragment) createdFragment;
+                    FinishedMatchFragment finishedMatchFragment = (FinishedMatchFragment) createdFragment;
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + position);

@@ -18,9 +18,9 @@ live result table.
 ## Tech stack
 
 - Java, native Android (no Kotlin, no backend/network)
-- AndroidX + Material Components, `minSdk 21`, `targetSdk`/`compileSdk 36`
+- AndroidX + Material Components, `minSdk 23`, `targetSdk`/`compileSdk 36`
   (migrated from the pre-AndroidX Support Library — see "Modernization" below)
-- Gradle build (`gradlew`/`gradlew.bat`), Android Gradle Plugin 9.4.0 / Gradle 9.6.0
+- Gradle build (`gradlew`/`gradlew.bat`), Android Gradle Plugin 9.0.1 / Gradle 9.1.0
 - UI: `ViewPager` (classic, not ViewPager2) + `TabLayout` with 4 tabs, each
   backed by a `Fragment` and a `RecyclerView`
 - All application state is held in static in-memory lists on `MainActivity`
@@ -76,9 +76,13 @@ again:
   (`android.useAndroidX=true` in `gradle.properties`). The *Java package* of
   the app's own classes (`com.example.huzz00mc.csocsomaster`) was **not**
   renamed/moved — only the library imports changed.
-- **`compileSdk`/`targetSdk` 36**, `minSdk` bumped 15 → 21 (required by
-  current AndroidX/Material versions), AGP 7.2.1 → 9.4.0, Gradle 7.3.3 → 9.6.0,
-  Java source/target compatibility set to 17.
+- **`compileSdk`/`targetSdk` 36**, `minSdk` bumped 15 → 21 → 23 (the latter
+  bump, in the lint-cleanup pass, was required by `androidx.appcompat`
+  1.8.0/`com.google.android.material` 1.14.0 — both declare a minSdk 23 floor,
+  so pinning older versions was the only alternative), AGP 7.2.1 → 9.0.1,
+  Gradle 7.3.3 → 9.1.0 (9.4.0/9.6.0 briefly, then downgraded — Android Studio's
+  installed AGP support lagged behind; see git history), Java source/target
+  compatibility set to 17.
 - **`applicationId` changed to `com.tepsi.csocsomaster`** (was
   `com.example.huzz00mc.csocsomaster`, a placeholder-style name). This is the
   public, permanent identifier Play Store will use — it is intentionally
@@ -101,11 +105,12 @@ again:
 
 ### Build status
 
-`./gradlew assembleDebug`, `assembleRelease`, `bundleRelease`, and `test`
-all build successfully (verified Oct 2026 — AGP 9.4.0 / Gradle 9.6.0 /
-compileSdk 36, `lintVitalRelease` passes). Two real compile errors turned up
-and were fixed during that verification, both worth knowing about if you
-touch this code:
+`./gradlew assembleDebug`, `assembleRelease`, `bundleRelease`, `test`, and
+`lintDebug` all build successfully (verified Oct 2026 — AGP 9.0.1 / Gradle
+9.1.0 / compileSdk 36; `lintDebug` reports zero errors/warnings as of the
+lint-cleanup pass below). Two real compile errors turned up during the
+original modernization pass, both worth knowing about if you touch this
+code:
 
 - **`getDefaultProguardFile('proguard-android.txt')` is no longer
   supported** by current AGP (it hard-codes `-dontoptimize`, which blocks
@@ -120,6 +125,38 @@ touch this code:
   preserved via a shared outer condition. If you add a new `onClick`/
   `onOptionsItemSelected` branch, use `if (id == R.id.whatever)`, not
   `switch`.
+
+### Lint cleanup (Oct 2026)
+
+A follow-up pass eliminated every warning `lintDebug` reported (previously 5
+errors, 77 warnings). Most were mechanical (useless `FrameLayout` wrappers,
+redundant XML namespaces, hardcoded strings, `android:tint`→`app:tint`,
+`Integer.toString()`→`String.format(Locale, ...)`). A few are worth knowing
+about:
+
+- **Deleted dead Settings-screen template leftovers**: `content_preference.xml`
+  referenced a `PreferenceActivityFragment` class that doesn't exist (a
+  `MissingClass` lint *error*, not just a warning) — it, `fragment_main.xml`,
+  `menu_preference.xml`, and the `ic_settings*` icon family were all unused
+  remnants of Android Studio's default "Settings Activity" template;
+  `SettingsActivity`/`SettingsFragment` build their UI programmatically via
+  `addPreferencesFromResource()` and never reference any of them.
+- **`minSdk` 21 → 23**: see "Modernization" above — forced by taking the
+  latest `appcompat`/`material` to clear `GradleDependency` warnings.
+- **`NotifyDataSetChanged` warnings suppressed, not fixed**: every call site
+  rebuilds or reorders the *entire* player list (reset, shuffle-on-add,
+  resort), so there's no stable per-item mapping to hand to a targeted
+  `notifyItem*()` call. Introducing `DiffUtil` to do this properly was judged
+  out of scope for a lint pass on a hobby project — see
+  `@SuppressLint("NotifyDataSetChanged")` call sites for the reasoning.
+- **Generated `ic_launcher_monochrome.png`** (one per mipmap density) for the
+  `MonochromeLauncherIcon` check by thresholding the existing
+  `ic_launcher_foreground.png` artwork (non-white → opaque white, white →
+  transparent) rather than hand-drawing new art — the foreground logo already
+  reads as flat color blocks on white, so this is a faithful derivation, not
+  new iconography.
+- **`slider_bg.jpg` moved** from `drawable/` to `drawable-nodpi/` (it's a
+  density-independent background image, flagged by `IconLocation`).
 
 ### Known risk — not yet verified on a real device/emulator
 

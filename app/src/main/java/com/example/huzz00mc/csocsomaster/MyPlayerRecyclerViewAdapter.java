@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import com.example.huzz00mc.csocsomaster.DAO.Player;
 import com.example.huzz00mc.csocsomaster.PlayerFragment.OnListFragmentInteractionListener;
 
@@ -29,9 +31,11 @@ public class MyPlayerRecyclerViewAdapter extends RecyclerView.Adapter<MyPlayerRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mNameView.setText(MainActivity.playerList.get(position).getName());
-        holder.mPlayedView.setText(Integer.toString(MainActivity.playerList.get(position).getPlayed()));
+        holder.mPlayedView.setText(String.format(Locale.getDefault(), "%d", MainActivity.playerList.get(position).getPlayed()));
         holder.player = MainActivity.playerList.get(position);
         holder.mImageView.setImageResource(holder.player.isActive() ? android.R.drawable.presence_online : android.R.drawable.presence_busy);
+        holder.mImageView.setContentDescription(holder.mImageView.getContext().getString(
+                holder.player.isActive() ? R.string.player_active : R.string.player_inactive));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

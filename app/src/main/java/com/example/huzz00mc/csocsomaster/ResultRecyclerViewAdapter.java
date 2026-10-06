@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.huzz00mc.csocsomaster.DAO.FinishedMatch;
 
+import java.util.Locale;
+
 public class ResultRecyclerViewAdapter extends RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder> {
 
     @Override
@@ -18,8 +20,8 @@ public class ResultRecyclerViewAdapter extends RecyclerView.Adapter<ResultRecycl
         holder.tvFMName2.setText(holder.match.getPair1().getPlayer2().getName());
         holder.tvFMName3.setText(holder.match.getPair2().getPlayer1().getName());
         holder.tvFMName4.setText(holder.match.getPair2().getPlayer2().getName());
-        holder.tvScore1.setText(Integer.toString(holder.match.getScore1()));
-        holder.tvScore2.setText(Integer.toString(holder.match.getScore2()));
+        holder.tvScore1.setText(String.format(Locale.getDefault(), "%d", holder.match.getScore1()));
+        holder.tvScore2.setText(String.format(Locale.getDefault(), "%d", holder.match.getScore2()));
         if (holder.match.getScore1() > holder.match.getScore2()) {
             setColor(holder,1,Color.GREEN);
             setColor(holder,2,Color.RED);

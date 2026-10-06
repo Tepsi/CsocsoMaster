@@ -1,5 +1,6 @@
 package com.example.huzz00mc.csocsomaster;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -108,6 +109,9 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         alertDialog.show();
     }
 
+    // Adding a player can reshuffle/regenerate the whole player list, so there is
+    // no stable per-item mapping to drive a targeted notify*() event.
+    @SuppressLint("NotifyDataSetChanged")
     public void createPlayer(String nev) {
         Player newPlayer = new Player(nev);
         if (newPlayer.getPlayed() < MainActivity.minPlayed())

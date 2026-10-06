@@ -20,5 +20,16 @@
     <string name="save_players">Save Players</string>
     <string name="load_players">Load Players</string>
     <string name="match_results">Match results</string>
+    <string name="hyphen">-</string>
+    <string name="decrease_score">Decrease score</string>
+    <string name="increase_score">Increase score</string>
+    <string name="column_played">Pl.</string>
+    <string name="column_won">W</string>
+    <string name="column_lost">L</string>
+    <string name="column_win_lose_ratio">W/L %</string>
+    <string name="column_goals_for">Gf</string>
+    <string name="column_goals_against">Ga</string>
+    <string name="player_active">Active</string>
+    <string name="player_inactive">Inactive</string>
 
 </resources>

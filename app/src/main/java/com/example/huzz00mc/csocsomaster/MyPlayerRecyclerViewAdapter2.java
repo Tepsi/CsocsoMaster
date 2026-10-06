@@ -1,5 +1,6 @@
 package com.example.huzz00mc.csocsomaster;
 
+import android.annotation.SuppressLint;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Math.round;
 
@@ -33,6 +35,9 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
 
     private List<Player> mValues;
 
+    // The whole list is rebuilt and re-sorted every call, so there is no stable
+    // per-item mapping to drive a targeted notify*() event.
+    @SuppressLint("NotifyDataSetChanged")
     public void sortPlayers() {
         mValues = new ArrayList<>();
         for (Player player : MainActivity.playerList) {
@@ -58,12 +63,12 @@ public class MyPlayerRecyclerViewAdapter2 extends RecyclerView.Adapter<MyPlayerR
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.player = mValues.get(position);
         holder.tvName.setText(holder.player.getName());
-        holder.tvPlayed.setText(Integer.toString(holder.player.getWon() + holder.player.getLost()));
-        holder.tvWon.setText(Integer.toString(holder.player.getWon()));
-        holder.tvLost.setText(Integer.toString(holder.player.getLost()));
-        holder.tvWinLoseRatio.setText(Integer.toString(round(holder.player.getWinLoseRatio() * 100)) + "%");
-        holder.tvGoalsFor.setText(Integer.toString(holder.player.getGoalsFor()));
-        holder.tvGoalsAgainst.setText(Integer.toString(holder.player.getGoalsAgainst()));
+        holder.tvPlayed.setText(String.format(Locale.getDefault(), "%d", holder.player.getWon() + holder.player.getLost()));
+        holder.tvWon.setText(String.format(Locale.getDefault(), "%d", holder.player.getWon()));
+        holder.tvLost.setText(String.format(Locale.getDefault(), "%d", holder.player.getLost()));
+        holder.tvWinLoseRatio.setText(String.format(Locale.getDefault(), "%d%%", round(holder.player.getWinLoseRatio() * 100)));
+        holder.tvGoalsFor.setText(String.format(Locale.getDefault(), "%d", holder.player.getGoalsFor()));
+        holder.tvGoalsAgainst.setText(String.format(Locale.getDefault(), "%d", holder.player.getGoalsAgainst()));
     }
 
     @Override

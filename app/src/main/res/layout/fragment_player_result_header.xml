@@ -29,7 +29,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="10"
         android:background="@color/listItemHeader"
-        android:text="Pl."
+        android:text="@string/column_played"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -43,7 +43,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="10"
         android:background="@color/listItemHeader"
-        android:text="W"
+        android:text="@string/column_won"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -57,7 +57,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="10"
         android:background="@color/listItemHeader"
-        android:text="L"
+        android:text="@string/column_lost"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -71,7 +71,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="25"
         android:background="@color/listItemHeader"
-        android:text="W/L %"
+        android:text="@string/column_win_lose_ratio"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -85,7 +85,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="10"
         android:background="@color/listItemHeader"
-        android:text="Gf"
+        android:text="@string/column_goals_for"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -99,7 +99,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="10"
         android:background="@color/listItemHeader"
-        android:text="Ga"
+        android:text="@string/column_goals_against"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 

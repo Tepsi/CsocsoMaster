@@ -18,5 +18,16 @@
     <string name="save_players">Játékosok mentése</string>
     <string name="load_players">Játékoslista betöltése</string>
     <string name="match_results">Eredmények</string>
+    <string name="hyphen">-</string>
+    <string name="decrease_score">Eredmény csökkentése</string>
+    <string name="increase_score">Eredmény növelése</string>
+    <string name="column_played">Mecs.</string>
+    <string name="column_won">Gy</string>
+    <string name="column_lost">V</string>
+    <string name="column_win_lose_ratio">Gy/V %</string>
+    <string name="column_goals_for">Lg</string>
+    <string name="column_goals_against">Kg</string>
+    <string name="player_active">Aktív</string>
+    <string name="player_inactive">Inaktív</string>
 
 </resources>

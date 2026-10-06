@@ -7,7 +7,6 @@ import android.preference.EditTextPreference;
 import java.util.Map;
 
 public class SettingsFragment extends android.preference.PreferenceFragment {
-    SharedPreferences sharedPreferences;
 
     public SettingsFragment() {
     }
